@@ -5,9 +5,8 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { nav } from '@/lib/content'
-import { siteConfig, whatsappLink } from '@/lib/site-config'
+import { siteConfig } from '@/lib/site-config'
 import { CtaLink } from '@/components/cta'
-import { WhatsAppIcon } from '@/components/icons'
 import { cn } from '@/lib/utils'
 
 export function SiteHeader() {
@@ -48,14 +47,22 @@ export function SiteHeader() {
       >
         Skip to content
       </a>
+
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2" aria-label={`${siteConfig.name} home`}>
+        <Link
+          href="/"
+          className="flex items-center gap-2"
+          aria-label={`${siteConfig.name} home`}
+        >
           <span className="font-serif text-lg font-semibold tracking-tight sm:text-xl">
             FEMS<span className="text-accent">·</span>STITCHES
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden items-center gap-7 lg:flex"
+          aria-label="Primary"
+        >
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -67,23 +74,14 @@ export function SiteHeader() {
           ))}
         </nav>
 
+        {/* Desktop CTA */}
         <div className="hidden items-center gap-3 lg:flex">
-          <CtaLink
-            href={whatsappLink('Hello FEMS-STITCHES, I have an enquiry.')}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="ghost"
-            size="sm"
-            aria-label="Chat on WhatsApp"
-          >
-            <WhatsAppIcon className="size-4 text-[#128C4A]" />
-            WhatsApp
-          </CtaLink>
           <CtaLink href="/order" size="sm">
             Start Your Order
           </CtaLink>
         </div>
 
+        {/* Mobile menu button */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -92,13 +90,21 @@ export function SiteHeader() {
           aria-controls="mobile-nav"
           aria-label={open ? 'Close menu' : 'Open menu'}
         >
-          {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          {open ? (
+            <X className="size-6" />
+          ) : (
+            <Menu className="size-6" />
+          )}
         </button>
       </div>
 
+      {/* Mobile navigation */}
       {open && (
         <div id="mobile-nav" className="border-t border-border lg:hidden">
-          <nav className="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6" aria-label="Mobile">
+          <nav
+            className="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6"
+            aria-label="Mobile"
+          >
             {nav.map((item) => (
               <Link
                 key={item.href}
@@ -108,19 +114,10 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+
             <div className="flex flex-col gap-3 py-4">
               <CtaLink href="/order" size="full">
                 Start Your Order
-              </CtaLink>
-              <CtaLink
-                href={whatsappLink('Hello FEMS-STITCHES, I have an enquiry.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="whatsapp"
-                size="full"
-              >
-                <WhatsAppIcon className="size-5" />
-                Chat on WhatsApp
               </CtaLink>
             </div>
           </nav>
